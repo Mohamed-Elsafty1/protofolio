@@ -321,22 +321,55 @@
       background-clip: text;
     }
 
-    .hero-text .tagline {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 480px;
-      margin-bottom: 2rem;
-      line-height: 1.8;
+    /* Typewriter wrapper */
+    .typewriter-wrapper {
+      display: block;
+      min-height: 1.3em;
+      margin-top: .25rem;
     }
 
-    /* Typing cursor blink */
-    .typing-cursor {
+    .typewriter-text {
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: clamp(1.1rem, 3.5vw, 1.85rem);
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .typewriter-cursor {
       display: inline-block;
-      width: 2px; height: 1.15em;
+      width: 3px;
+      height: 1.15em;
       background: var(--accent);
-      margin-left: 2px;
+      margin-left: 3px;
       vertical-align: text-bottom;
-      animation: blink 1s step-end infinite;
+      border-radius: 2px;
+      animation: blink-cursor .75s step-end infinite;
+    }
+
+    @keyframes blink-cursor {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0; }
+    }
+
+    .hero-text .tagline {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 2rem;
+      line-height: 1.85;
+    }
+
+    .tagline .kw {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .tagline .kw-alt {
+      color: #a78bfa;
+      font-weight: 600;
     }
     @keyframes blink { 50% { opacity: 0; } }
 
@@ -494,9 +527,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 6rem;
       position: relative;
       overflow: hidden;
+      padding: 2rem;
+    }
+
+    .about-graphic svg {
+      width: 85%;
+      height: 85%;
+      filter: drop-shadow(0 0 25px rgba(0,229,255,.3));
+      animation: float-3d 5s ease-in-out infinite;
+    }
+
+    @keyframes float-3d {
+      0%, 100% { transform: translateY(0) rotateY(0deg); }
+      25%      { transform: translateY(-10px) rotateY(5deg); }
+      50%      { transform: translateY(-18px) rotateY(0deg); }
+      75%      { transform: translateY(-10px) rotateY(-5deg); }
     }
 
     .about-graphic::after {
@@ -504,6 +551,7 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, transparent 50%, rgba(0,229,255,.06) 100%);
+      pointer-events: none;
     }
 
     /* ================================================================
@@ -600,66 +648,70 @@
     /* ================================================================
        SKILLS SECTION
        ================================================================ */
-    .skills-grid {
+    .skills-categories {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
     }
 
-    .skill-item {
+    .skill-category {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
       transition: var(--transition);
     }
 
-    .skill-item:hover {
+    .skill-category:hover {
       border-color: var(--accent);
       transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0,229,255,.06);
+      box-shadow: 0 10px 40px rgba(0,229,255,.08);
     }
 
-    .skill-header {
+    .skill-category-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .skill-header .skill-icon {
+    .skill-category-header .cat-icon {
       font-size: 1.5rem;
-      margin-right: .75rem;
     }
 
-    .skill-header .skill-name {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-heading);
-      flex: 1;
-    }
-
-    .skill-header .skill-percent {
-      font-size: .85rem;
+    .skill-category-header h3 {
+      font-size: 1.05rem;
       font-weight: 700;
+      color: var(--text-heading);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .skill-tags span {
+      font-size: .8rem;
+      font-weight: 500;
+      padding: .35rem .8rem;
+      background: rgba(0,229,255,.06);
+      color: var(--text-primary);
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .skill-tags span:hover {
+      border-color: var(--accent);
       color: var(--accent);
+      background: rgba(0,229,255,.12);
+      transform: translateY(-2px);
     }
 
-    .skill-bar {
-      width: 100%;
-      height: 8px;
-      background: rgba(148,163,184,.1);
-      border-radius: 50px;
-      overflow: hidden;
-    }
 
-    .skill-bar-fill {
-      height: 100%;
-      border-radius: 50px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
-      width: 0;
-      transition: width 1.4s cubic-bezier(.25,.46,.45,.94);
-    }
 
     /* ================================================================
        EDUCATION SECTION
@@ -952,9 +1004,9 @@
         <ul class="nav-links">
           <li><a href="#hero"     class="active">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
           <li><a href="#education">Education</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -970,9 +1022,9 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#hero">Home</a>
     <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
     <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </div>
 
@@ -984,14 +1036,18 @@
       <div class="hero-text">
         <p class="greeting">👋 Hello, I'm</p>
         <h1>
-          Mohamed<br/>
-          <span class="highlight">AI Developer</span>
-          <span class="typing-cursor"></span>
+          Mohamed
+          <span class="typewriter-wrapper">
+            <span class="typewriter-text" id="typewriter"></span><span class="typewriter-cursor"></span>
+          </span>
         </h1>
         <p class="tagline">
-          Computer Science &amp; AI student building intelligent systems —
-          from computer vision pipelines to autonomous robots.
-          Available for freelance projects that push the boundaries of technology.
+          Computer Science &amp; AI student specializing in
+          <span class="kw">Machine Learning</span>, <span class="kw">Deep Learning</span>, and
+          <span class="kw">NLP</span>. Currently in the <span class="kw-alt">Generative AI Professional Track</span>
+          at <span class="kw-alt">DEPI</span>, building innovative solutions with
+          <span class="kw">LLMs</span>, <span class="kw">Computer Vision</span>, and
+          <span class="kw">RAG</span> systems.
         </p>
         <div class="hero-buttons">
           <a href="#contact" class="btn btn-primary">
@@ -1059,8 +1115,154 @@
 
       <div class="about-image reveal">
         <div class="about-graphic">
-          🧠
+          <!-- 3D AI Neural Network illustration -->
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#00e5ff;stop-opacity:.9" />
+                <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:.9" />
+              </linearGradient>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:.7" />
+                <stop offset="100%" style="stop-color:#00e5ff;stop-opacity:.7" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <filter id="glow-strong">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+
+            <!-- Connection lines (neural network edges) -->
+            <g stroke="url(#grad1)" stroke-width="1.2" opacity=".35" filter="url(#glow)">
+              <!-- Input → Hidden 1 -->
+              <line x1="80" y1="100" x2="175" y2="80" />
+              <line x1="80" y1="100" x2="175" y2="160" />
+              <line x1="80" y1="100" x2="175" y2="240" />
+              <line x1="80" y1="200" x2="175" y2="80" />
+              <line x1="80" y1="200" x2="175" y2="160" />
+              <line x1="80" y1="200" x2="175" y2="240" />
+              <line x1="80" y1="300" x2="175" y2="80" />
+              <line x1="80" y1="300" x2="175" y2="160" />
+              <line x1="80" y1="300" x2="175" y2="240" />
+              <line x1="80" y1="300" x2="175" y2="320" />
+              <!-- Hidden 1 → Hidden 2 -->
+              <line x1="175" y1="80" x2="270" y2="120" />
+              <line x1="175" y1="80" x2="270" y2="200" />
+              <line x1="175" y1="80" x2="270" y2="280" />
+              <line x1="175" y1="160" x2="270" y2="120" />
+              <line x1="175" y1="160" x2="270" y2="200" />
+              <line x1="175" y1="160" x2="270" y2="280" />
+              <line x1="175" y1="240" x2="270" y2="120" />
+              <line x1="175" y1="240" x2="270" y2="200" />
+              <line x1="175" y1="240" x2="270" y2="280" />
+              <line x1="175" y1="320" x2="270" y2="120" />
+              <line x1="175" y1="320" x2="270" y2="200" />
+              <line x1="175" y1="320" x2="270" y2="280" />
+              <!-- Hidden 2 → Output -->
+              <line x1="270" y1="120" x2="345" y2="160" />
+              <line x1="270" y1="120" x2="345" y2="240" />
+              <line x1="270" y1="200" x2="345" y2="160" />
+              <line x1="270" y1="200" x2="345" y2="240" />
+              <line x1="270" y1="280" x2="345" y2="160" />
+              <line x1="270" y1="280" x2="345" y2="240" />
+            </g>
+
+            <!-- Animated data-flow pulses -->
+            <g fill="none" stroke="var(--accent)" stroke-width="2" opacity=".6">
+              <circle cx="0" cy="0" r="3">
+                <animateMotion dur="2.5s" repeatCount="indefinite" path="M80,100 L175,160 L270,200 L345,240" />
+              </circle>
+              <circle cx="0" cy="0" r="3">
+                <animateMotion dur="3s" repeatCount="indefinite" path="M80,300 L175,240 L270,120 L345,160" />
+              </circle>
+              <circle cx="0" cy="0" r="2.5">
+                <animateMotion dur="2.8s" repeatCount="indefinite" path="M80,200 L175,80 L270,280 L345,240" />
+              </circle>
+            </g>
+
+            <!-- Input layer nodes -->
+            <g filter="url(#glow-strong)">
+              <circle cx="80" cy="100" r="14" fill="url(#grad1)" opacity=".9" />
+              <circle cx="80" cy="200" r="14" fill="url(#grad1)" opacity=".9" />
+              <circle cx="80" cy="300" r="14" fill="url(#grad1)" opacity=".9" />
+            </g>
+
+            <!-- Hidden layer 1 nodes -->
+            <g filter="url(#glow-strong)">
+              <circle cx="175" cy="80"  r="12" fill="url(#grad2)" opacity=".85" />
+              <circle cx="175" cy="160" r="12" fill="url(#grad2)" opacity=".85" />
+              <circle cx="175" cy="240" r="12" fill="url(#grad2)" opacity=".85" />
+              <circle cx="175" cy="320" r="12" fill="url(#grad2)" opacity=".85" />
+            </g>
+
+            <!-- Hidden layer 2 nodes -->
+            <g filter="url(#glow-strong)">
+              <circle cx="270" cy="120" r="12" fill="url(#grad1)" opacity=".85" />
+              <circle cx="270" cy="200" r="12" fill="url(#grad1)" opacity=".85" />
+              <circle cx="270" cy="280" r="12" fill="url(#grad1)" opacity=".85" />
+            </g>
+
+            <!-- Output layer nodes -->
+            <g filter="url(#glow-strong)">
+              <circle cx="345" cy="160" r="14" fill="url(#grad2)" opacity=".9" />
+              <circle cx="345" cy="240" r="14" fill="url(#grad2)" opacity=".9" />
+            </g>
+
+            <!-- Layer labels -->
+            <text x="80" y="365" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Inter, sans-serif" font-weight="600">Input</text>
+            <text x="175" y="365" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Inter, sans-serif" font-weight="600">Hidden 1</text>
+            <text x="270" y="365" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Inter, sans-serif" font-weight="600">Hidden 2</text>
+            <text x="345" y="365" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Inter, sans-serif" font-weight="600">Output</text>
+
+            <!-- Center AI chip icon -->
+            <g transform="translate(175, 195)" opacity=".12">
+              <rect x="-35" y="-35" width="70" height="70" rx="12" fill="var(--accent)" />
+              <text x="0" y="8" text-anchor="middle" fill="white" font-size="28" font-family="Inter, sans-serif" font-weight="900">AI</text>
+            </g>
+          </svg>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EDUCATION SECTION
+       ============================================================ -->
+  <section class="section" id="education">
+    <div class="container">
+      <span class="section-label reveal">Education</span>
+      <h2 class="section-title reveal">Academic Background</h2>
+      <p class="section-subtitle reveal">
+        My academic journey in Computer Science &amp; Artificial Intelligence.
+      </p>
+
+      <div class="education-timeline">
+
+        <!-- Education 1 -->
+        <div class="education-item reveal">
+          <div class="education-card">
+            <span class="edu-date">2022 — 2026 (Expected)</span>
+            <h3>Bachelor's in Computer Science &amp; Artificial Intelligence</h3>
+            <p class="edu-institution">🎓 University</p>
+            <p>
+              Focused on machine learning, computer vision, robotics, and intelligent systems.
+              Engaged in hands-on projects and research combining theory with real-world applications.
+            </p>
+            <div class="edu-highlights">
+              <span>Machine Learning</span>
+              <span>Computer Vision</span>
+              <span>Robotics</span>
+              <span>Data Structures</span>
+              <span>Algorithms</span>
+              <span>NLP</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1162,115 +1364,98 @@
         The tools and technologies I use to bring ideas to life.
       </p>
 
-      <div class="skills-grid">
+      <div class="skills-categories">
 
-        <!-- Skill: Python -->
-        <div class="skill-item reveal" data-skill="92">
-          <div class="skill-header">
-            <span class="skill-icon">🐍</span>
-            <span class="skill-name">Python</span>
-            <span class="skill-percent">92%</span>
+        <!-- Languages -->
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="cat-icon">💻</span>
+            <h3>Languages</h3>
           </div>
-          <div class="skill-bar">
-            <div class="skill-bar-fill"></div>
+          <div class="skill-tags">
+            <span>Python</span>
+            <span>C#</span>
+            <span>Java</span>
           </div>
         </div>
 
-        <!-- Skill: AI / ML -->
-        <div class="skill-item reveal" data-skill="88">
-          <div class="skill-header">
-            <span class="skill-icon">🧠</span>
-            <span class="skill-name">AI &amp; Machine Learning</span>
-            <span class="skill-percent">88%</span>
+        <!-- AI & NLP -->
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="cat-icon">🧠</span>
+            <h3>AI &amp; NLP</h3>
           </div>
-          <div class="skill-bar">
-            <div class="skill-bar-fill"></div>
-          </div>
-        </div>
-
-        <!-- Skill: Computer Vision -->
-        <div class="skill-item reveal" data-skill="85">
-          <div class="skill-header">
-            <span class="skill-icon">👁️</span>
-            <span class="skill-name">Computer Vision</span>
-            <span class="skill-percent">85%</span>
-          </div>
-          <div class="skill-bar">
-            <div class="skill-bar-fill"></div>
+          <div class="skill-tags">
+            <span>LLMs</span>
+            <span>RAG</span>
+            <span>Transformers</span>
+            <span>BERT</span>
+            <span>GPT</span>
+            <span>T5</span>
+            <span>Deep Learning</span>
+            <span>Machine Learning</span>
           </div>
         </div>
 
-        <!-- Skill: Robotics -->
-        <div class="skill-item reveal" data-skill="80">
-          <div class="skill-header">
-            <span class="skill-icon">🦾</span>
-            <span class="skill-name">Robotics</span>
-            <span class="skill-percent">80%</span>
+        <!-- Frameworks & Libraries -->
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="cat-icon">📦</span>
+            <h3>Frameworks &amp; Libraries</h3>
           </div>
-          <div class="skill-bar">
-            <div class="skill-bar-fill"></div>
-          </div>
-        </div>
-
-        <!-- Skill: Web Development -->
-        <div class="skill-item reveal" data-skill="75">
-          <div class="skill-header">
-            <span class="skill-icon">🌐</span>
-            <span class="skill-name">Web Development</span>
-            <span class="skill-percent">75%</span>
-          </div>
-          <div class="skill-bar">
-            <div class="skill-bar-fill"></div>
+          <div class="skill-tags">
+            <span>PyTorch</span>
+            <span>TensorFlow</span>
+            <span>Scikit-learn</span>
+            <span>LangChain</span>
+            <span>Pandas</span>
+            <span>NumPy</span>
+            <span>Hugging Face</span>
           </div>
         </div>
 
-        <!-- Skill: Problem Solving -->
-        <div class="skill-item reveal" data-skill="90">
-          <div class="skill-header">
-            <span class="skill-icon">💡</span>
-            <span class="skill-name">Problem Solving</span>
-            <span class="skill-percent">90%</span>
+        <!-- Developer Tools -->
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="cat-icon">🛠️</span>
+            <h3>Developer Tools</h3>
           </div>
-          <div class="skill-bar">
-            <div class="skill-bar-fill"></div>
+          <div class="skill-tags">
+            <span>Git</span>
+            <span>GitHub</span>
+            <span>VS Code</span>
+            <span>Google Colab</span>
+            <span>Jupyter</span>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
+        <!-- Specialized Areas -->
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="cat-icon">🎯</span>
+            <h3>Specialized Areas</h3>
+          </div>
+          <div class="skill-tags">
+            <span>Generative AI</span>
+            <span>Computer Vision</span>
+            <span>Data Preprocessing</span>
+            <span>Model Optimization</span>
+            <span>Sequence Modeling</span>
+          </div>
+        </div>
 
-  <!-- ============================================================
-       EDUCATION SECTION
-       ============================================================ -->
-  <section class="section" id="education">
-    <div class="container">
-      <span class="section-label reveal">Education</span>
-      <h2 class="section-title reveal">Academic Background</h2>
-      <p class="section-subtitle reveal">
-        My academic journey in Computer Science &amp; Artificial Intelligence.
-      </p>
-
-      <div class="education-timeline">
-
-        <!-- Education 1 -->
-        <div class="education-item reveal">
-          <div class="education-card">
-            <span class="edu-date">2022 — 2026 (Expected)</span>
-            <h3>Bachelor's in Computer Science &amp; Artificial Intelligence</h3>
-            <p class="edu-institution">🎓 University</p>
-            <p>
-              Focused on machine learning, computer vision, robotics, and intelligent systems.
-              Engaged in hands-on projects and research combining theory with real-world applications.
-            </p>
-            <div class="edu-highlights">
-              <span>Machine Learning</span>
-              <span>Computer Vision</span>
-              <span>Robotics</span>
-              <span>Data Structures</span>
-              <span>Algorithms</span>
-              <span>NLP</span>
-            </div>
+        <!-- Soft Skills -->
+        <div class="skill-category reveal">
+          <div class="skill-category-header">
+            <span class="cat-icon">🤝</span>
+            <h3>Soft Skills</h3>
+          </div>
+          <div class="skill-tags">
+            <span>Problem-solving</span>
+            <span>Teamwork</span>
+            <span>Communication</span>
+            <span>Time Management</span>
+            <span>Adaptability</span>
           </div>
         </div>
 
@@ -1421,27 +1606,60 @@
     revealElements.forEach(el => revealObserver.observe(el));
 
     /* =============================================================
-       5. SKILL BAR ANIMATION
+       5. TYPEWRITER EFFECT
        ============================================================= */
-    const skillItems = document.querySelectorAll('.skill-item');
+    (function () {
+      const roles = [
+        'AI & Machine Learning Student',
+        'Generative AI Trainee @ DEPI',
+        'NLP & Computer Vision Enthusiast',
+        'AI Solutions Developer'
+      ];
 
-    const skillObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const pct = entry.target.getAttribute('data-skill');
-          const bar = entry.target.querySelector('.skill-bar-fill');
-          if (bar) bar.style.width = pct + '%';
-          skillObserver.unobserve(entry.target);
+      const el          = document.getElementById('typewriter');
+      let roleIndex     = 0;
+      let charIndex     = 0;
+      let isDeleting    = false;
+      const typeSpeed   = 80;
+      const deleteSpeed = 40;
+      const pauseEnd    = 1800;   // pause after full word
+      const pauseStart  = 400;    // pause before typing next
+
+      function tick() {
+        const current = roles[roleIndex];
+
+        if (!isDeleting) {
+          // typing
+          el.textContent = current.substring(0, charIndex + 1);
+          charIndex++;
+
+          if (charIndex === current.length) {
+            isDeleting = true;
+            setTimeout(tick, pauseEnd);
+            return;
+          }
+          setTimeout(tick, typeSpeed);
+        } else {
+          // deleting
+          el.textContent = current.substring(0, charIndex - 1);
+          charIndex--;
+
+          if (charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            setTimeout(tick, pauseStart);
+            return;
+          }
+          setTimeout(tick, deleteSpeed);
         }
-      });
-    }, {
-      threshold: 0.3
-    });
+      }
 
-    skillItems.forEach(item => skillObserver.observe(item));
+      // Start after a short delay
+      setTimeout(tick, 600);
+    })();
 
     /* =============================================================
-       6. SMOOTH SCROLL POLYFILL (for older browsers)
+       7. SMOOTH SCROLL POLYFILL (for older browsers)
        ============================================================= */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
