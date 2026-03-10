@@ -662,6 +662,113 @@
     }
 
     /* ================================================================
+       EDUCATION SECTION
+       ================================================================ */
+    .education-timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-left: 2rem;
+    }
+
+    .education-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-alt));
+      border-radius: 2px;
+    }
+
+    .education-item {
+      position: relative;
+      padding: 0 0 3rem 2rem;
+    }
+
+    .education-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .education-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: .35rem;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg-primary);
+      box-shadow: 0 0 12px var(--accent-glow);
+      z-index: 1;
+    }
+
+    .education-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .education-card:hover {
+      border-color: var(--accent);
+      transform: translateX(6px);
+      box-shadow: 0 10px 40px rgba(0,229,255,.08);
+    }
+
+    .education-card .edu-date {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .3rem .75rem;
+      border-radius: 50px;
+      background: rgba(0,229,255,.1);
+      color: var(--accent);
+      margin-bottom: .75rem;
+      letter-spacing: .03em;
+    }
+
+    .education-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: .35rem;
+    }
+
+    .education-card .edu-institution {
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: .75rem;
+    }
+
+    .education-card p {
+      color: var(--text-secondary);
+      font-size: .9rem;
+      line-height: 1.7;
+    }
+
+    .education-card .edu-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1rem;
+    }
+
+    .education-card .edu-highlights span {
+      font-size: .75rem;
+      font-weight: 500;
+      padding: .25rem .65rem;
+      background: rgba(148,163,184,.08);
+      color: var(--text-secondary);
+      border-radius: 50px;
+      border: 1px solid var(--border);
+    }
+
+    /* ================================================================
        CONTACT / FOOTER SECTION
        ================================================================ */
     .contact {
@@ -847,6 +954,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -864,6 +972,7 @@
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
     <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
     <a href="#contact">Contact</a>
   </div>
 
@@ -1124,6 +1233,44 @@
           </div>
           <div class="skill-bar">
             <div class="skill-bar-fill"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EDUCATION SECTION
+       ============================================================ -->
+  <section class="section" id="education">
+    <div class="container">
+      <span class="section-label reveal">Education</span>
+      <h2 class="section-title reveal">Academic Background</h2>
+      <p class="section-subtitle reveal">
+        My academic journey in Computer Science &amp; Artificial Intelligence.
+      </p>
+
+      <div class="education-timeline">
+
+        <!-- Education 1 -->
+        <div class="education-item reveal">
+          <div class="education-card">
+            <span class="edu-date">2022 — 2026 (Expected)</span>
+            <h3>Bachelor's in Computer Science &amp; Artificial Intelligence</h3>
+            <p class="edu-institution">🎓 University</p>
+            <p>
+              Focused on machine learning, computer vision, robotics, and intelligent systems.
+              Engaged in hands-on projects and research combining theory with real-world applications.
+            </p>
+            <div class="edu-highlights">
+              <span>Machine Learning</span>
+              <span>Computer Vision</span>
+              <span>Robotics</span>
+              <span>Data Structures</span>
+              <span>Algorithms</span>
+              <span>NLP</span>
+            </div>
           </div>
         </div>
 
